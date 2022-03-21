@@ -22,7 +22,11 @@ class QrValidator {
     try {
       if (version != QrVersions.auto) {
         qrCode = QrCode(version, errorCorrectionLevel);
-        qrCode.addData(data);
+        if(int.tryParse(data)){
+          qrCode.addNumeric(data);
+        } else {
+          qrCode.addData(data);
+        }
       } else {
         qrCode = QrCode.fromData(
           data: data,
